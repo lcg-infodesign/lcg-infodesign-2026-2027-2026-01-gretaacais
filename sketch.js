@@ -1,4 +1,7 @@
+let isNight = false
+let blink = false
 let u = 25;
+
 
 function preload() {
   // put preload code here
@@ -17,12 +20,45 @@ function setup() {
 }
 
 function draw() {
-background (205, 230, 245);
-translate (width/2, height/2 - 50);
-
 let medBlue = color(105, 170, 210);
 let darkBlue = color (60, 115, 175);
 let white = color (255);
+
+if (isNight===true){
+  background(20, 30, 60);
+}else{
+  background(205, 230, 245);
+} 
+
+translate (width/2, height/2 - 50);
+
+if (isNight === false) {
+    fill(255, 255, 255, 200); 
+    
+    randomSeed(99); 
+    
+    for (let i = -15 * u; i <= 15 * u; i = i + 8 * u) {
+      
+      
+      let altezzaCasuale = random(-10 * u, -4 * u); 
+      let grandezzaCasuale = random(0.4, 1.2);      
+      push(); 
+      
+      translate(i, altezzaCasuale); 
+      
+      scale(grandezzaCasuale);      
+      
+      circle(0, 0, 3.5 * u);             
+      circle(-1.5 * u, 1 * u, 2.5 * u);   
+      circle(1.5 * u, 1 * u, 2.5 * u);   
+      rect(-1.5 * u, 0.5 * u, 3 * u, 1.25 * u); 
+      
+      pop(); 
+    }
+  } else {
+      fill(white);
+      circle (8*u, -8*u, 4*u);
+    }
 
 fill(medBlue); //spalle e muso sx
   triangle(-4*u, 6*u, -8*u, 18*u, -4*u, 18*u); 
@@ -52,9 +88,20 @@ fill(white); //muso bianco
 fill(darkBlue);
   circle(0, 2*u, 2.5*u); //naso
   circle(-2*u, -2*u, 1.2*u); //occhio sx
-  circle(2*u, -2*u, 1.2*u); //occhio dx
+
+fill(darkBlue);
+if (blink===true){
+  rect(1.5*u, -2.2*u, 1.2*u, 0.3*u);
+}else{
+  circle(2*u, -2*u, 1.2*u);
+}
 
 text("Greta Cais", 0*u, -9*u);
 text("Laboratorio di Computergrafica C2", 0*u, -8*u);
 text("2026", 0, -7*u);
+}
+
+function mouseClicked (){
+  isNight=!isNight;
+  blink=!blink;
 }
